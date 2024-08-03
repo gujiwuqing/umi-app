@@ -13,6 +13,12 @@ const routes = [
     path: '/login',
     component: './Login',
     menuRender: false, //隐藏菜单
+    hideInMenu: true,
+  },
+  {
+    name: '用户列表',
+    path: '/user',
+    component: './User',
   },
   {
     name: '权限演示',

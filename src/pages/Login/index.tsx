@@ -7,18 +7,18 @@ import {
   ProFormText,
 } from '@ant-design/pro-components';
 import { history, useMutation } from '@umijs/max';
-import { message, Tabs, theme } from 'antd';
+import { message, Tabs } from 'antd';
 import { useState } from 'react';
 
 type LoginType = 'register' | 'login';
 
 const Page = () => {
   const [loginType, setLoginType] = useState<LoginType>('login');
-  const { token } = theme.useToken();
   const loginMutation = useMutation(user.login, {
     onSuccess: (data) => {
       // 登录成功后的处理逻辑，可以跳转页面或者设置全局状态等
-      console.log('onSuccess', data);
+      console.log('onSuccess', data?.data?.access_token);
+      localStorage.setItem('token', data?.data?.access_token);
       // 示例：跳转到其他页面
       history.push('/dashboard');
     },
@@ -85,14 +85,7 @@ const Page = () => {
               name="username"
               fieldProps={{
                 size: 'large',
-                prefix: (
-                  <UserOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={'prefixIcon'}
-                  />
-                ),
+                prefix: <UserOutlined className={'prefixIcon'} />,
               }}
               placeholder={'用户名: admin or user'}
               rules={[
@@ -106,14 +99,7 @@ const Page = () => {
               name="password"
               fieldProps={{
                 size: 'large',
-                prefix: (
-                  <LockOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={'prefixIcon'}
-                  />
-                ),
+                prefix: <LockOutlined className={'prefixIcon'} />,
               }}
               placeholder={'密码: ant.design'}
               rules={[
@@ -130,14 +116,7 @@ const Page = () => {
             <ProFormText
               fieldProps={{
                 size: 'large',
-                prefix: (
-                  <MobileOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={'prefixIcon'}
-                  />
-                ),
+                prefix: <MobileOutlined className={'prefixIcon'} />,
               }}
               name="mobile"
               placeholder={'手机号'}
@@ -155,14 +134,7 @@ const Page = () => {
             <ProFormCaptcha
               fieldProps={{
                 size: 'large',
-                prefix: (
-                  <LockOutlined
-                    style={{
-                      color: token.colorText,
-                    }}
-                    className={'prefixIcon'}
-                  />
-                ),
+                prefix: <LockOutlined className={'prefixIcon'} />,
               }}
               captchaProps={{
                 size: 'large',

@@ -4,9 +4,12 @@ import { useState } from 'react';
 
 const useUser = () => {
   const [name, setName] = useState<string>(DEFAULT_NAME);
+  const [token, setToken] = useState<string>('');
   return {
     name,
     setName,
+    token,
+    setToken,
   };
 };
 
